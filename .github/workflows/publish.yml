@@ -25,5 +25,6 @@ jobs:
           git tag ${PACKAGE_VERSION}
           git push --tags
 
-          echo "Creating git tag"
+          echo "Publishing Tag to NPM Registry"
+          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
           npm publish --access public
