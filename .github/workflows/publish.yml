@@ -24,3 +24,6 @@ jobs:
           git remote set-url --push origin https://${GITHUB_ACTOR}:${ACTION_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git tag ${PACKAGE_VERSION}
           git push --tags
+
+          echo "Creating git tag"
+          npm publish --access public
