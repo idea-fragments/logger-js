@@ -63,6 +63,8 @@ var Logger = /** @class */ (function () {
     _a = Logger;
     Logger.packageName = "";
     Logger.addModules = function (m) { m.forEach(function (name) { return modules.add(name); }); };
+    Logger.removeModules = function (m) { m.forEach(function (name) { return modules.delete(name); }); };
+    Logger.clearModules = function () { modules.clear(); };
     Logger.getModules = function () { return __spreadArray([], __read(modules), false); };
     Logger.packagePrefix = function () { return !!_a.packageName
         ? "".concat(_a.packageName, " : ")

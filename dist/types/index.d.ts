@@ -12,6 +12,8 @@ export declare class Logger implements LoggerI {
     writeError: (...args: any) => void;
     writeWarning: (...args: any) => void;
     static addModules: (m: string[]) => void;
+    static removeModules: (m: string[]) => void;
+    static clearModules: () => void;
     static getModules: () => string[];
     private static packagePrefix;
 }

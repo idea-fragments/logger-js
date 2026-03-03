@@ -35,6 +35,8 @@ export class Logger implements LoggerI {
   writeWarning = this.log("warn")
 
   static addModules = (m: string[]) => { m.forEach((name) => modules.add(name)) }
+  static removeModules = (m: string[]) => { m.forEach((name) => modules.delete(name)) }
+  static clearModules = () => { modules.clear() }
   static getModules = (): string[] => [...modules]
   private static packagePrefix = () => !!this.packageName
                                        ? `${this.packageName} : `
