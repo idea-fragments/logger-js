@@ -5,13 +5,11 @@ on:
 name: NPM Publish
 permissions:
   id-token: write  # Required for OIDC
-  contents: read
+  contents: write
 jobs:
   publish:
     env:
       ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
