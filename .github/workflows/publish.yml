@@ -3,17 +3,20 @@ on:
     branches:
       - main
 name: NPM Publish
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
 jobs:
   publish:
     env:
       ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN_SAM }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version-file: ".node-version"
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
       - name: Publish to NPM Registry
         timeout-minutes: 10
 
@@ -27,4 +30,5 @@ jobs:
 
           echo "Publishing Tag to NPM Registry"
           echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+          npm ci
           npm publish --access public
