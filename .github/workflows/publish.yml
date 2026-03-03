@@ -10,9 +10,11 @@ jobs:
   publish:
     env:
       ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
