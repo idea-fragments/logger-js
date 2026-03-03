@@ -53,6 +53,12 @@ var Logger = /** @class */ (function () {
             if (!modules.has(_this.moduleName))
                 return;
             console[level].apply(console, __spreadArray(["%c".concat(Logger.packagePrefix()).concat(_this.moduleName), "".concat(LEVEL_STYLES[level], " padding: 2px 6px;")], __read(args), false));
+            if (Logger.onLog) {
+                try {
+                    Logger.onLog({ args: args, level: level, moduleName: _this.moduleName, timestamp: new Date().toISOString() });
+                }
+                catch (_) { }
+            }
         }; };
         this.writeInfo = this.log("info");
         this.writeError = this.log("error");
@@ -61,6 +67,7 @@ var Logger = /** @class */ (function () {
     }
     var _a;
     _a = Logger;
+    Logger.onLog = null;
     Logger.packageName = "";
     Logger.addModules = function (m) { m.forEach(function (name) { return modules.add(name); }); };
     Logger.removeModules = function (m) { m.forEach(function (name) { return modules.delete(name); }); };

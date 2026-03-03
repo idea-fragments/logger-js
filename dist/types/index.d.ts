@@ -3,8 +3,21 @@ export interface LoggerI {
     writeError: (...args: any) => void;
     writeWarning: (...args: any) => void;
 }
+export declare type LogEntry = {
+    args: any[];
+    level: keyof typeof LEVEL_STYLES;
+    moduleName: string;
+    timestamp: string;
+};
+export declare type LogTransport = (entry: LogEntry) => void;
+declare const LEVEL_STYLES: {
+    readonly info: "background: #499cc8; color: white;";
+    readonly error: "background: #c14a4f; color: white;";
+    readonly warn: "background: #e0a270; color: black;";
+};
 export declare class Logger implements LoggerI {
     moduleName: string;
+    static onLog: LogTransport | null;
     static packageName: string;
     constructor(moduleName: string);
     private log;
@@ -17,4 +30,5 @@ export declare class Logger implements LoggerI {
     static getModules: () => string[];
     private static packagePrefix;
 }
+export {};
 //# sourceMappingURL=index.d.ts.map
