@@ -19,6 +19,21 @@ const LEVEL_STYLES = {
   warn:  "background: #e0a270; color: black;",
 } as const
 
+const LEVEL_CODES = {
+  info:  "I",
+  error: "E",
+  warn:  "W",
+} as const
+
+const formatTimestamp = (): string => {
+  const now = new Date()
+  const pad2 = (n: number) => String(n).padStart(2, "0")
+  const pad3 = (n: number) => String(n).padStart(3, "0")
+  const date = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())}`
+  const time = `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}.${pad3(now.getMilliseconds())}000`
+  return `${date} ${time}`
+}
+
 const modules = new Set<string>()
 
 export class Logger implements LoggerI {
@@ -33,8 +48,9 @@ export class Logger implements LoggerI {
   private log = (level: keyof typeof LEVEL_STYLES) => (...args: any) => {
     if (!modules.has(this.moduleName)) return
 
+    const prefix = `${formatTimestamp()} ${LEVEL_CODES[level]} ${Logger.packagePrefix()}${this.moduleName}`
     console[level](
-      `%c${Logger.packagePrefix()}${this.moduleName}`,
+      `%c${prefix}`,
       `${LEVEL_STYLES[level]} padding: 2px 6px;`,
       ...args,
     )
